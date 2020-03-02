@@ -75,13 +75,13 @@ Average degree:   3.6598
 
 Visual Representation of the Sample Events
 
-![]('img/Modern_Art.png')
+![](img/Modern_Art.png)
 
 The data is unlabeled and requires unsupervised learning techniques. Looking at the Network graph, there appears to be very popular documents, but there does not appear to be separate clusters or clear separate paths. Looking at Kernel Density with tophat and gaussian kernel, albeit using the wrong type of numbers, reflect the same concept that there aren't any peaks or groups of documents. The large amount of features increase the bias and decreases the variance.  
 
 Kernel Density - Gaussian
 
-![]('/img/Kernel_Density.png')
+![](/img/Kernel_Density.png)
 
 ### Conclusion & Further Steps
 
