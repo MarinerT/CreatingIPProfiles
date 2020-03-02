@@ -73,7 +73,7 @@ Average degree:   3.6598
 
 ### Modelling & Validation
 
-Visual Representation of the Sample Events
+Visual Representation of the Sample Events: each node represents a document with its size showing the document's degree of betweenness centrality.
 
 ![](img/Modern_Art.png)
 
@@ -85,4 +85,4 @@ Kernel Density - Gaussian
 
 ### Conclusion & Further Steps
 
-Due to bad assumptions, bad data wrangling and modelling, nothing can be inferred from the dataset about detecting document rank and paths of ips.  Within the data one ip address would represent a large company, and within seconds would hit the same document. This does illustrate that group behavior does exist within the dataset, but the model needs a better algorithm that could detect and label the separate users. 
+Due to bad assumptions, bad data wrangling and modelling, nothing can be inferred from the dataset about detecting document rank and paths of ips.  Within the data one ip address could represent a large company or the masking inc, and within seconds would hit the same document. This does illustrate that group behavior does exist within the dataset, but the model needs a better algorithm that could detect and label the separate users. 
