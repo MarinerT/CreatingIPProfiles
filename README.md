@@ -24,7 +24,7 @@ EDGAR is the Securities and Exchange Commission's database for accessing publicl
 1. All events are independent. 
 2. All documents were obtained.
 3. Crawlers used are represented in the higher range of document acquisition.
-
+4. Smaller financial researchers can be represented by the range of document hits 30 - 200 and with ip hits in the range of 30 - 200. 
 
 #### The Source: EDGAR Log File Dataset
 Source: https://www.sec.gov/dera/data/edgar-log-file-data-set.html
@@ -73,8 +73,15 @@ Average degree:   3.6598
 
 ### Modelling & Validation
 
-The data is unlabeled and requires unsupervised learning techniques. Looking at the Network graph, there appears to be very popular documents, but there does not appear to be separate clusters or clear separate paths. Looking at Kernel Density with tophat and gaussian kernel, albeit using the wrong type of numbers, reflect the same concept that there aren't any peaks or groups of documents.  
+Visual Representation of the Sample Events
 
+![]('img/Modern_Art.png')
+
+The data is unlabeled and requires unsupervised learning techniques. Looking at the Network graph, there appears to be very popular documents, but there does not appear to be separate clusters or clear separate paths. Looking at Kernel Density with tophat and gaussian kernel, albeit using the wrong type of numbers, reflect the same concept that there aren't any peaks or groups of documents. The large amount of features increase the bias and decreases the variance.  
+
+Kernel Density - Gaussian
+
+![]('/img/Kernel_Density.png')
 
 ### Conclusion & Further Steps
 
