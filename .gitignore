@@ -1,2 +1,2 @@
 data/
-*.jupyter_checkpoints
+*..ipynb_checkpoints
