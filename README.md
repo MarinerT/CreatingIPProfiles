@@ -70,6 +70,10 @@ Average degree:   3.6598
 
 ### Modelling & Evaluation
 
+Document Recommender
+NMF/SVD/SVDS
+
+
 Visual Representation of the Sample Events: each node represents a document with its size showing the document's degree of betweenness centrality.
 
 ![](img/Modern_Art.png)
