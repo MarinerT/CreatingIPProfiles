@@ -21,17 +21,14 @@ EDGAR is the Securities and Exchange Commission's database for accessing publicl
 
 #### Assumptions
 
-1. All events are independent. 
-2. All documents were obtained.
-3. Crawlers used are represented in the higher range of document acquisition.
-4. Smaller financial researchers can be represented by the range of document hits 30 - 200 and with ip hits in the range of 30 - 200. 
+1. All events are independent; each event represents a unique identifiable sequence per IP address.
+2. Crawlers used are represented in the higher range of document acquisition.
+3. Smaller financial researchers can be represented by the range of document hits 30 - 200 and with ip hits in the range of 30 - 200. 
 
 #### The Source: EDGAR Log File Dataset
 Source: https://www.sec.gov/dera/data/edgar-log-file-data-set.html
 
-Log for 10 OCT 2010
-
-To obtain the data, go to the above site and download the log file log20101010.zip.
+To obtain the data, go to the above site and download the log file for Log for '10 OCT 2010', log20101010.zip.
 
 #### Features of the Dataset
 
@@ -73,7 +70,7 @@ Average degree:   3.6598
 
 ### Modelling & Validation
 
-Visual Representation of the Sample Events
+Visual Representation of the Sample Events: each node represents a document with its size showing the document's degree of betweenness centrality.
 
 ![](img/Modern_Art.png)
 
@@ -85,4 +82,4 @@ Kernel Density - Gaussian
 
 ### Conclusion & Further Steps
 
-Due to bad assumptions, bad data wrangling and modelling, nothing can be inferred from the dataset about detecting document rank and paths of ips.  Within the data one ip address would represent a large company, and within seconds would hit the same document. This does illustrate that group behavior does exist within the dataset, but the model needs a better algorithm that could detect and label the separate users. 
+Due to bad assumptions, bad data wrangling and modelling, nothing can be inferred from the dataset about detecting document rank and paths of ips.  Within the data one ip address could represent a large company or the masking inc, and within seconds would hit the same document. This does illustrate that group behavior does exist within the dataset, but the model needs a better algorithm that could detect and label the separate users. 
