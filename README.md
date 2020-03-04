@@ -70,7 +70,9 @@ Average degree:   3.6598
 
 ### Modelling & Evaluation
 
-Collaborative Filtering: Model-Based, User to User (IP to IP) with Cosine Similarity **FAILED**
+#### Collaborative Filtering: Model-Based, User to User (IP to IP) with Cosine Similarity 
+
+**FAILED**
 
 ![](img/cosine_collab.png)
 
