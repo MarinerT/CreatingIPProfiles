@@ -70,6 +70,14 @@ Average degree:   3.6598
 
 ### Modelling & Evaluation
 
+Collaborative Filtering: Model-Based, User to User (IP to IP) with Cosine Similarity **FAILED**
+
+![](img/cosine_collab.png)
+
+My first attempt to create a recommender through profiles was a model-based Collaborative Filtering User to User approach using cosine similarity.  The idea was to create vectors of the most highly visited sites for each IP address.  However, nearly 100% of the cosine similarities between the path ways for the most popular documents were perfectly aligned.  In the above Scatter Plot of the distribution of cosine to a normalized count for that cosine reveals that a significant majority are very similar, too similar in fact to distinguish behavioral patterns. 3,426,201 paths were analysed. 
+
+The script can be found here: [scripts/collab_filter_u2u.py]
+
 Document Recommender
 NMF/SVD/SVDS
 
