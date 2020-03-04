@@ -12,7 +12,7 @@ The applicability of the model could serve investigators looking into possible n
 EDGAR is the Securities and Exchange Commission's database for accessing publicly available financial & ownership information about publicly traded companies. Millions of people across the world access the database, including crawlers from large institutions like Bloomberg and smaller investors.
 
 ### Github Structure
-* data: contains the sample log data.
+* data: contains the sample log data and one original training file.
 * worksheet: contains the Jupyter Notebooks.
 * scripts: contains the scripts used in ETL.
 * img: will contain the graph images to be used on the README.
@@ -24,6 +24,11 @@ EDGAR is the Securities and Exchange Commission's database for accessing publicl
 1. All events are independent; each event represents a unique identifiable sequence per IP address.
 2. Crawlers used are represented in the higher range of document acquisition.
 3. Smaller financial researchers can be represented by the range of document hits 30 - 200 and with ip hits in the range of 30 - 200. 
+
+##### Argument Basis
+
+With over 2 million events on one day, nearly 1 million unique documents and only about 15,000 IP addresses, there must be IP addresses that have hit multiple documents. 
+  
 
 #### The Source: EDGAR Log File Dataset
 Source: https://www.sec.gov/dera/data/edgar-log-file-data-set.html
@@ -66,7 +71,12 @@ Average degree:   3.6598
 * Feature engineered the toDoc column in order to obtain a path of from the document to the next document.
 
 *Load*
-* Loaded the document into NetworkX graphing to visualize the network and obtain degrees of centrality and betweenness.
+
+* Loaded the data into different methods:
+1. Into NetworkX graphing to visualize the network and obtain degrees of centrality, betweenness and eigenvector.
+2. Into SVD
+3. Into DBSCAN
+4. Into KMeans Clustering
 
 ### Modelling & Evaluation
 
@@ -101,9 +111,22 @@ Average degree:   3.6598
 
 **KM Clustering - 3D Representation of the Eigenvector Centrality/Betweenness Centrality/Centrality**
 
-![](img/KMClustering.png)
+![](img/KMClustering.png) ![](img/KMClustering-nooutliers.png) ![](img/60_view.png)
 
-Much like the virus graph above, the information here does not appear to have more than cluster despite the attempt to break it into 5.
+Much like the virus graph, the data shown through clustering is extremely close together as well. Even so, some disparity between the centrality measurements exists to cluster the data into four groups. 
+
+| Cluster | Centrality | Betweenness | Eigenvector |
+| -------|------ | -------|------ |
+|Grey | .5 - 0 | Below 0 | Low 0-.01 |
+|Pink| .5 - -.5 |Below 0 | Above .01 |
+|Gold| 0 - -1.0 |0 - .01 | Low 0-.01 |
+|Blue| -1.0 - -3.0 | .01 - .04 |Low 0-.01 |
+
+The clusters are broken down into three groups for the Betweenness Centrality, or the degree that measures how connected the document is to other documents. Grey and Pink clusters are at 0 or below, indicating they're more isolated, while Gold and Blue are ever so slightly above 0.  The lack of range indicates, for the most part, that there's very little difference despite the cluster.
+
+Further, the Eigenvector Centrality, which measures the high-powered connections amongst the nodes (i.e. degree to which popular nodes connect to each other) is low for most groups except for Pink. When combined with the Pink cluster's betweenness range, this indicates that the pink group is the most popular group and often connects to other popular documents only. 
+
+Lastly, the Degree of Centrality appears negatively correlated to Betweenness, indicating that a lot of documents act as go-betweens for larger groups. 
 
 ##### Part B: with Autoencoding 
 
@@ -132,4 +155,8 @@ SKlearn Metrics provide further proof that the data in its current state does no
 
 ### Conclusion & Further Steps
 
+Using Alternative Methods of Measurements
+* Instead of using cosine, use alternative methods like manhattan distance.
+* Transform the data in different ways.
+* Investigate the IP masking scheme to ensure it's compatible with log analysis.
 
