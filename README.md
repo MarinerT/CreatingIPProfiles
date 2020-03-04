@@ -111,7 +111,7 @@ Average degree:   3.6598
 
 **KM Clustering - 3D Representation of the Eigenvector Centrality/Betweenness Centrality/Centrality**
 
-![](img/KMClustering.png) ![](img/KMClustering-nooutliers.png) ![](img/60_view.png)
+![](img/km_cluster.png) ![](img/30_view.png) ![](img/60_view.png)
 
 Much like the virus graph, the data shown through clustering is extremely close together as well. Even so, some disparity between the centrality measurements exists to cluster the data into four groups. 
 
