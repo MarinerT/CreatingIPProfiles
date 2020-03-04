@@ -115,6 +115,8 @@ Average degree:   3.6598
 
 Much like the virus graph, the data shown through clustering is extremely close together as well. Even so, some disparity between the centrality measurements exists to cluster the data into four groups. 
 
+The Data: 4,219 out of 4,333 sample documents. The outliers were 3 or more standard deviations on any one of the three centralities.
+
 | Cluster | Centrality | Betweenness | Eigenvector |
 | -------|------ | -------|------ |
 |Grey | .5 - 0 | Below 0 | Low 0-.01 |
@@ -127,6 +129,7 @@ The clusters are broken down into three groups for the Betweenness Centrality, o
 Further, the Eigenvector Centrality, which measures the high-powered connections amongst the nodes (i.e. degree to which popular nodes connect to each other) is low for most groups except for Pink. When combined with the Pink cluster's betweenness range, this indicates that the pink group is the most popular group and often connects to other popular documents only. 
 
 Lastly, the Degree of Centrality appears negatively correlated to Betweenness, indicating that a lot of documents act as go-betweens for larger groups. 
+
 
 ##### Part B: with Autoencoding 
 
