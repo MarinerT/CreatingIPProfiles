@@ -70,25 +70,34 @@ Average degree:   3.6598
 
 ### Modelling & Evaluation
 
-#### Collaborative Filtering: Model-Based, User to User (IP to IP) with Cosine Similarity 
+#### First Approach: Collaborative Filtering: Model-Based, User to User (IP to IP) with Cosine Similarity 
 
 **FAILED**
 
 ![](img/cosine_collab.png)
 
-My first attempt to create a recommender through profiles was a model-based Collaborative Filtering User to User approach using cosine similarity.  The idea was to create vectors of the most highly visited sites for each IP address.  However, nearly 100% of the cosine similarities between the path ways for the most popular documents were perfectly aligned.  In the above Scatter Plot of the distribution of cosine to a normalized count for that cosine reveals that a significant majority are very similar, too similar in fact to distinguish behavioral patterns. 3,426,201 paths were analysed. 
+My first attempt to create a recommender through profiles was a model-based Collaborative Filtering User to User approach using cosine similarity.  The idea was to create vectors of the most highly visited sites for each IP address.  However, nearly 100% of the cosine similarities between the path ways for the most popular documents were perfectly aligned.  In the above Scatter Plot of the distribution of cosine to a normalized count for that cosine reveals that a significant majority are very similar, too similar in fact to distinguish behavioral patterns. 3,426,201 paths were analysed. In short, you can't recommend something when both users saw exactly the same things; there's nothing to recommend.
 
 The script can be found here: [scripts/collab_filter_u2u.py]
 
-Document Recommender
-NMF/SVD/SVDS
+#### Second Approach: SVD User-Item Collaborative Filtering
 
+*to be filled in*
 
-Visual Representation of the Sample Events: each node represents a document with its size showing the document's degree of betweenness centrality.
+#### Third Approach: Network Analysis, using Document Centralities (Betweenness/Degree of Centrality/Eigenvector Centrality)
+
+##### Part i: Overview of the Network
+Like a good soldier, this data scientist does not give up (that easily at the least). Finding similarities model-approaches was difficult, but what if the information could be analyzed through the lens of network analysis.  Below is a graphical representation of the network for the presumably smaller financial research groups or individuals.  The parameters on document hits were set between 30 and 200, and IP address counts set between the same numbers to produce the graph of 4,333 documents. 
+
+Type: Graph
+Number of nodes: 4333
+Number of edges: 7929
+Average degree:   3.6598
 
 ![](img/Modern_Art.png)
 
-The data is unlabeled and requires unsupervised learning techniques. Looking at the NetworkX graph, there appears to be a few popular documents, but there does not appear to be separate clusters or clear separate paths. The goal of the project was to develop an algorithm that uses centrality as an engine for a ML recommender; however, after running the data through a network analyzer, KM Clustering and DBSCAN, there does not appear to be discernable clusters to base the recommendations on.
+
+##### Part A: in KM Clustering 
 
 **KM Clustering - 3D Representation of the Eigenvector Centrality/Betweenness Centrality/Centrality**
 
@@ -96,7 +105,10 @@ The data is unlabeled and requires unsupervised learning techniques. Looking at 
 
 Much like the virus graph above, the information here does not appear to have more than cluster despite the attempt to break it into 5.
 
-**DBSCAN**
+##### Part B: with Autoencoding 
+
+
+##### Part C: DBSCAN
 
 ![](img/DBSCAN.png)
 
