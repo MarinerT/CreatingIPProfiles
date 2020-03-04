@@ -68,18 +68,46 @@ Average degree:   3.6598
 *Load*
 * Loaded the document into NetworkX graphing to visualize the network and obtain degrees of centrality and betweenness.
 
-### Modelling & Validation
+### Modelling & Evaluation
+
+Document Recommender
+NMF/SVD/SVDS
+
 
 Visual Representation of the Sample Events: each node represents a document with its size showing the document's degree of betweenness centrality.
 
 ![](img/Modern_Art.png)
 
-The data is unlabeled and requires unsupervised learning techniques. Looking at the Network graph, there appears to be very popular documents, but there does not appear to be separate clusters or clear separate paths. Looking at Kernel Density with tophat and gaussian kernel, albeit using the wrong type of numbers, reflect the same concept that there aren't any peaks or groups of documents. The large amount of features increase the bias and decreases the variance.  
+The data is unlabeled and requires unsupervised learning techniques. Looking at the NetworkX graph, there appears to be a few popular documents, but there does not appear to be separate clusters or clear separate paths. The goal of the project was to develop an algorithm that uses centrality as an engine for a ML recommender; however, after running the data through a network analyzer, KM Clustering and DBSCAN, there does not appear to be discernable clusters to base the recommendations on.
 
-Kernel Density - Gaussian
+**KM Clustering - 3D Representation of the Eigenvector Centrality/Betweenness Centrality/Centrality**
 
-![](/img/Kernel_Density.png)
+![](img/KMClustering.png)
+
+Much like the virus graph above, the information here does not appear to have more than cluster despite the attempt to break it into 5.
+
+**DBSCAN**
+
+![](img/DBSCAN.png)
+
+Also in the DBSCAN, we can see no correlation to clustering. 
+
+**DBSCAN & Clustering Metric Scores**
+
+SKlearn Metrics provide further proof that the data in its current state does not support creating an accurate recommender since the data cannot be clustered.
+
+| Metric | Score | 
+| -------|------ |
+|Estimated number of clusters | 1 | 
+|Estimated number of noise points| 4306 |
+|Homogeneity| 0.005 |
+|Completeness| 1.000 |
+|V-measure| 0.009 |
+|Adjusted Rand Index| 0.000 |
+|Adjusted Mutual Information| -0.000 |
+|Silhouette Coefficient| 0.009 |
+
 
 ### Conclusion & Further Steps
 
-Due to bad assumptions, bad data wrangling and modelling, nothing can be inferred from the dataset about detecting document rank and paths of ips.  Within the data one ip address could represent a large company or the masking inc, and within seconds would hit the same document. This does illustrate that group behavior does exist within the dataset, but the model needs a better algorithm that could detect and label the separate users. 
+
