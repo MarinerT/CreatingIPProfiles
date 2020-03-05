@@ -25,9 +25,13 @@ EDGAR is the Securities and Exchange Commission's database for accessing publicl
 2. Crawlers used are represented in the higher range of document acquisition.
 3. Smaller financial researchers can be represented by the range of document hits 30 - 200 and with ip hits in the range of 30 - 200. 
 
+**Issues**
+* Because of masking and/or single ips mapping to multiple individuals, creating truly unique paths is not possible at this time. 
+* The size of the data also made ingestion difficult, limited by the memory on the EC2 instance. A work around was to keep the document in buffer from an S3 bucket, ingest the info, then move on. However, due to time constraints, only one day was handled.
+
 ##### Argument Basis
 
-With over 2 million events on one day, nearly 1 million unique documents and only about 15,000 IP addresses, there must be IP addresses that have hit multiple documents. 
+With over 2 million events on one day, nearly 1 million unique documents and only about 15,000 IP addresses, there must be IP addresses that have hit multiple documents, forming communities around the document clusters. 
   
 
 #### The Source: EDGAR Log File Dataset
@@ -63,38 +67,32 @@ Average degree:   3.6598
 
 *Extract*
 * Uploaded log files to S3 bucket.
-* Read log file into a Pandas DataFrame.
+* Read log file into a Pandas DataFrame. 
 
 *Transform*
 * Reformatted date columns & dropped unused attributes
 * Featured engineered columns for filtering events by number of number of total hits by ip and number of total hits per document (accession). 
 * Feature engineered the toDoc column in order to obtain a path of from the document to the next document.
+* Created Train/Test data after basic transformations for comparability. 
 
 *Load*
 
 * Loaded the data into different methods:
 1. Into NetworkX graphing to visualize the network and obtain degrees of centrality, betweenness and eigenvector.
-2. Into SVD
+2. Into NMF
 3. Into DBSCAN
 4. Into KMeans Clustering
 
 ### Modelling & Evaluation
 
-#### First Approach: Collaborative Filtering: Model-Based, User to User (IP to IP) with Cosine Similarity 
+#### First Approach: Collaborative Filtering: User-Item Topic Modelling 
 
-**FAILED**
+**Non-Matrix Factorization (NMF)**
 
-![](img/cosine_collab.png)
+NMF, a model used frequently for detecting latent topics in NLP, was used to detect latent communities within the documents by reducing the dimensionality of the matrix.  For training and testing purposes, the data was limited to the top most visited documents, which reduced the number of IP Addresses to about 9,000.  
 
-My first attempt to create a recommender through profiles was a model-based Collaborative Filtering User to User approach using cosine similarity.  The idea was to create vectors of the most highly visited sites for each IP address.  However, nearly 100% of the cosine similarities between the path ways for the most popular documents were perfectly aligned.  In the above Scatter Plot of the distribution of cosine to a normalized count for that cosine reveals that a significant majority are very similar, too similar in fact to distinguish behavioral patterns. 3,426,201 paths were analysed. In short, you can't recommend something when both users saw exactly the same things; there's nothing to recommend.
 
-The script can be found here: [scripts/collab_filter_u2u.py]
-
-#### Second Approach: SVD User-Item Collaborative Filtering
-
-*to be filled in*
-
-#### Third Approach: Network Analysis, using Document Centralities (Betweenness/Degree of Centrality/Eigenvector Centrality)
+#### Second Approach: Network Analysis, using Document Centralities (Betweenness/Degree of Centrality/Eigenvector Centrality)
 
 ##### Part i: Overview of the Network
 Like a good soldier, this data scientist does not give up (that easily at the least). Finding similarities model-approaches was difficult, but what if the information could be analyzed through the lens of network analysis.  Below is a graphical representation of the network for the presumably smaller financial research groups or individuals.  The parameters on document hits were set between 30 and 200, and IP address counts set between the same numbers to produce the graph of 4,333 documents. 
@@ -131,35 +129,21 @@ Further, the Eigenvector Centrality, which measures the high-powered connections
 Lastly, the Degree of Centrality appears negatively correlated to Betweenness, indicating that a lot of documents act as go-betweens for larger groups. 
 
 
-##### Part B: with Autoencoding 
-
-
-##### Part C: DBSCAN
-
-![](img/DBSCAN.png)
-
-Also in the DBSCAN, we can see no correlation to clustering. 
-
-**DBSCAN & Clustering Metric Scores**
-
-SKlearn Metrics provide further proof that the data in its current state does not support creating an accurate recommender since the data cannot be clustered.
-
-| Metric | Score | 
-| -------|------ |
-|Estimated number of clusters | 1 | 
-|Estimated number of noise points| 4306 |
-|Homogeneity| 0.005 |
-|Completeness| 1.000 |
-|V-measure| 0.009 |
-|Adjusted Rand Index| 0.000 |
-|Adjusted Mutual Information| -0.000 |
-|Silhouette Coefficient| 0.009 |
-
-
 ### Conclusion & Further Steps
 
-Using Alternative Methods of Measurements
+The precision of .82 is influenced by the proximity of the documents in clusters and the sparsity of the data (.009). For better results, possibly more data should be included and dimensions (documents) reduced. 
+
+**Use Alternative Methods of Measurements**
 * Instead of using cosine, use alternative methods like manhattan distance.
 * Transform the data in different ways.
-* Investigate the IP masking scheme to ensure it's compatible with log analysis.
 
+**Investigate the IP masking scheme to ensure it's compatible with log analysis.**
+
+**Explore with Karate Club**
+
+* The DANMF model (Deep Autoencoding-like NMF).  Preps data with NMF, then uses bottlenecks to find community memberships.
+* Autoencoding for dimensionality reduction.
+* Use the DANMF model to create IP address communities' membership. 
+
+**Scaling & Time Series**
+* The data is able to be scaled for better recommendations and graphing possibilities, as well as incorporating time features.
